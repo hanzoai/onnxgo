@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/hero.svg" alt="onnxgo" width="880"></p>
+
 # onnxgo
 
 High-performance ONNX Runtime bindings for Go by [Hanzo AI](https://hanzo.ai).
