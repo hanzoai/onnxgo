@@ -96,7 +96,7 @@ provider of choice in a python script before raising issues about it here.
 Example Usage
 -------------
 
-The full documentation can be found at [pkg.go.dev](https://pkg.go.dev/github.com/hanzoai/onnxgo).
+The full documentation can be found at [pkg.go.dev](https://pkg.go.dev/hanzo.ai/onnxgo).
 
 Additionally, several example command-line applications complete with necessary
 networks and data can be found in the
@@ -111,7 +111,7 @@ non-nil in the case of failure.
 ```go
 import (
     "fmt"
-    ort "github.com/hanzoai/onnxgo"
+    ort "hanzo.ai/onnxgo"
     "os"
 )
 

@@ -6,7 +6,7 @@ GPU inference (CUDA, TensorRT, CoreML) for production AI workloads.
 ## Usage
 
 ```go
-import ort "github.com/hanzoai/onnxgo"
+import ort "hanzo.ai/onnxgo"
 
 ort.SetSharedLibraryPath("/usr/local/lib/libonnxruntime.so")
 ort.InitializeEnvironment()

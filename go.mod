@@ -1,4 +1,3 @@
-// Deprecated: module moved to hanzo.ai/onnxgo
-module github.com/hanzoai/onnxgo
+module hanzo.ai/onnxgo
 
 go 1.26.4
