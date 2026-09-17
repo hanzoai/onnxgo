@@ -648,7 +648,7 @@ func randomMultitypeInputs(t *testing.T, seed int64) (*Tensor[uint8],
 		t.Fatalf("Failed creating input B: %s\n", e)
 	}
 	inputA.GetData()[0] = uint8(rng.Intn(256))
-	for i := 0; i < 4; i++ {
+	for i := range 4 {
 		inputB.GetData()[i] = rng.Float64()
 	}
 	return inputA, inputB
@@ -660,7 +660,7 @@ func getExpectedMultitypeOutputs(inputA *Tensor[uint8],
 	outputA := make([]int16, 4)
 	dataA := inputA.GetData()[0]
 	dataB := inputB.GetData()
-	for i := 0; i < len(outputA); i++ {
+	for i := range outputA {
 		outputA[i] = int16((dataB[i] * float64(dataA)) - 512)
 	}
 	return outputA, []int64{int64(dataA) * 1234}
@@ -732,7 +732,7 @@ func TestDynamicDifferentInputOutputTypes(t *testing.T) {
 	// Make sure we clean up all the tensors created for this test, even if we
 	// somehow fail before we've created them all.
 	defer func() {
-		for i := 0; i < numTests; i++ {
+		for i := range numTests {
 			if aInputs[i] != nil {
 				aInputs[i].Destroy()
 			}
@@ -749,7 +749,7 @@ func TestDynamicDifferentInputOutputTypes(t *testing.T) {
 	}()
 
 	// Actually create the inputs and run the tests.
-	for i := 0; i < numTests; i++ {
+	for i := range numTests {
 		aInputs[i], bInputs[i] = randomMultitypeInputs(t, 999+int64(i))
 		aOutputs[i] = newTestTensor[int16](t, NewShape(1, 2, 2))
 		bOutputs[i] = newTestTensor[int64](t, NewShape(1, 1, 1))
@@ -763,7 +763,7 @@ func TestDynamicDifferentInputOutputTypes(t *testing.T) {
 	// Now that all the tests ran, check the outputs. If the
 	// DynamicAdvancedSession worked properly, each run should have only
 	// modified its given outputs.
-	for i := 0; i < numTests; i++ {
+	for i := range numTests {
 		expectedA, expectedB := getExpectedMultitypeOutputs(aInputs[i],
 			bInputs[i])
 		verifyTensorData(t, aOutputs[i], expectedA)
@@ -884,7 +884,7 @@ func checkVectorSum(input *Tensor[float32], output *Tensor[float32],
 	batchSize := inputShape[0]
 	vectorLength := inputShape[1]
 	expectedSums := make([]float32, batchSize)
-	for i := int64(0); i < batchSize; i++ {
+	for i := range batchSize {
 		inputVector := input.GetData()[i*vectorLength : (i+1)*vectorLength]
 		sum := float32(0.0)
 		for _, v := range inputVector {
@@ -2558,7 +2558,7 @@ func TestSharedAllocator(t *testing.T) {
 
 	modelPath := "test_data/example_big_fanout.onnx"
 
-	for i := 0; i < 3; i++ {
+	for i := range 3 {
 		s, e := NewDynamicAdvancedSession(modelPath, nil, nil, options)
 		if e != nil {
 			t.Fatalf("Error creating session %d: %s\n", i, e)
